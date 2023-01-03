@@ -25,16 +25,16 @@ header{
 .logo{
 
     text-decoration: none;
-    color: rgb(103, 38, 164);
+    color: #6726a4;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.8em;
 }
 
-.navigation{
+.navigation a{
 
     text-decoration: none;
-    color: rgb(120, 46, 189);
+    color: #6726a4;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1.2em;
