@@ -45,8 +45,16 @@ header{
     color: #601cfc;
 }
 
+.section{
+    padding: 100px 200px;
 
+}
 
+.main{
+
+    width: 100%;
+    min-height: 100vh;
+}
 
 
 
