@@ -56,7 +56,7 @@ header{
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: url(/src/images/i.png);
+    background: url(/src/images/i.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
