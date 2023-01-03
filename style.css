@@ -58,7 +58,7 @@ header{
     align-items: center;
     background: url(/src/images/i.png) no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-attachment: fixed;
 
 }
