@@ -1,0 +1,66 @@
+{
+    "editor-command": "nvim -- %s",
+    "blog-dir": "b",
+    "git-url": "\/git",
+    "py-markdown-extensions": [
+        "markdown.extensions.abbr",
+        "markdown.extensions.def_list",
+        "markdown.extensions.fenced_code",
+        "markdown.extensions.footnotes",
+        "markdown.extensions.md_in_html",
+        "markdown.extensions.tables",
+        "markdown.extensions.admonition",
+        "markdown.extensions.sane_lists",
+        "markdown.extensions.toc",
+        "markdown.extensions.wikilinks",
+        "pymdownx.betterem",
+        "pymdownx.caret",
+        "pymdownx.magiclink",
+        "pymdownx.mark",
+        "pymdownx.tilde"
+    ],
+    "default-keywords": [
+        "website",
+        "blog",
+        "opinion",
+        "article",
+        "hacko-tech",
+        "hacko"
+    ],
+    "page-title": "Hacko -> Blog",
+    "page-description": "Hacko's Personal Blog Page",
+    "colourscheme-type": "dark",
+    "short-name": "hacko's blogs",
+    "home-keywords": [
+        "hacko",
+        "hacko-tech",
+        "blog",
+        "hacko-san",
+        "foss",
+        "free",
+        "linux",
+        "tech"
+    ],
+    "base-homepage": "https:\/\/hacko.xyz\/",
+    "meta-icons": [
+        {
+            "src": "\/favicon.ico",
+            "sizes": "128x128",
+            "type": "image\/png"
+        }
+    ],
+    "theme-colour": "#14151f",
+    "background-colour": "#14151f",
+    "full-name": "Hacko",
+    "locale": "en_US",
+    "home-page-header": "Hacko Blog Page",
+    "comment-url": "\/c",
+    "blogs": {
+        "welcome": {
+            "title": "V2VsY29tZQ==",
+            "content": "I2ZpcnN0IHBvc3QgaGVyZSAKCmlkayB3aHkgaSB3YW50ZWQgdG8gaGF2ZSBhIGJsb2cgb3Igd2h5IHRoZSB1cmdlIHRvIG1ha2Ugb25lLCBidXQgaSBoYXZlIGFscmVhZHkgZGlkIHNvIHllYWgsIG5pY2UgZXhwZXJpZW5jZSBuZ2wgZXNlcGNpYWxseSBhZnRlciBsZWFybmluZyBob3cgQk1TJ3Mgd29ya3MsIHNvIG1hbnkgYnMgd2lsbCBiZSBwc290ZWQgaGVyZSwgc29tZSB1c2VmdWwgaW5mbyBmb3IgdGVjaCByYXRzIHNvbWUgd2lsbCBmaW5kIGl0IGJvcmluZyBhbmQgc2hpdC4uIGVuam95Cg==",
+            "time": 1678052896.173147,
+            "keywords": "start"
+        }
+    }
+}

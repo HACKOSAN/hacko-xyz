@@ -1,0 +1,272 @@
+@import url("/content/fonts/JetBrains.min.css");
+
+:root {
+    color-scheme: dark;
+
+    --clr-bg: #14151f;
+    --clr-fg: #ffffff;
+
+    --clr-blockquote-fg: #f1f1f1;
+    --clr-blockquote-bg: #f1f1f1;
+
+    --blockquote-width: 2px;
+
+    --clr-code-bg: #3e3c44;
+    --clr-code-fg: #f0f3e6;
+    --clr-code-bg-dark: #181414;
+
+    --clr-link: #cdc4c4; /* #9e9b9b; */
+
+    --scrollbar-height: 6px; /* TODO: Firefox */
+}
+
+*,
+*::before,
+*::after {
+    background-color: var(--clr-bg);
+    color: var(--clr-fg);
+    font-family: 'JetBrains Mono', monospace;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    scrollbar-color: var(--clr-code-bg-dark) transparent;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    word-wrap: break-word;
+    /*
+     * Removed because users asked to to:
+     * word-break: break-all;
+     * */
+
+    scroll-behavior: smooth;
+
+    outline-offset: 3px;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+    height: var(--scrollbar-height);
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--clr-code-bg-dark);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Removed because I want code blocks to scroll
+code,
+code *,
+pre,
+pre * {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+}
+*/
+
+body {
+    margin: auto;
+    padding: 2rem;
+    max-width: 1100px;
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+}
+
+h1 {
+    text-align: center;
+    margin: 1em;
+    font-size: 2em;
+}
+
+li {
+    margin: 0.5em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-link);
+    font-style: italic;
+}
+
+a:focus,
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+a:not(li > a)::before {
+    content: "[";
+    font-style: bold;
+    color: #c9c3c3;
+}
+
+a:not(li > a)::after {
+    content: "]";
+    font-style: bold;
+    color: #c9c3c3;
+}
+*/
+
+pre,
+pre * {
+    background-color: var(--clr-code-bg);
+}
+
+pre,
+pre *,
+code {
+    color: var(--clr-code-fg);
+}
+
+pre,
+pre code {
+    overflow-x: auto !important;
+
+    scrollbar-width: initial;
+    -ms-overflow-style: initial;
+}
+
+pre {
+    padding: 1em;
+    border-radius: 4px;
+}
+
+code:not(pre code),
+time {
+    background-color: var(--clr-code-bg);
+    border-radius: 2px;
+    padding: 0.2em;
+}
+
+#info-bar {
+    text-align: center;
+}
+
+#blog-content {
+    padding: 0.3em;
+}
+
+blockquote {
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 0 0 0 20px;
+    font-weight: 100;
+    position: relative;
+}
+
+blockquote:before {
+    content: "";
+    border-left: var(--blockquote-width) solid var(--clr-blockquote-bg); /* Thx cel */
+    position: absolute;
+    bottom: 14px;
+    top: 13px;
+    left: 0;
+}
+
+blockquote,
+blockquote * {
+    color: var(--clr-blockquote-fg);
+}
+
+*[data-pl] {
+    padding-top: 0.06em;
+    padding-bottom: 0.06em;
+
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+*[data-pl] * {
+    display: inline;
+    font-size: inherit !important;
+}
+
+*[data-pl] > a {
+    padding-right: 0.3em;
+    opacity: 0.3;
+    -webkit-transition: opacity 0.1s ease-in-out;
+    -o-transition: opacity 0.1s ease-in-out;
+    transition: opacity 0.1s ease-in-out;
+}
+
+*[data-pl]:hover > a,
+*[data-pl]:focus > a {
+    opacity: 0.6;
+}
+
+*[data-pl] > a:hover,
+*[data-pl] > a:focus {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+    *[data-pl] > a,
+    *[data-pl]:hover > a,
+    *[data-pl]:focus > a {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        -webkit-animation-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+
+        -webkit-animation-iteration-count: 1 !important;
+        animation-iteration-count: 1 !important;
+
+        -webkit-transition-duration: 0.01ms !important;
+        -o-transition-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-contrast: more) {
+    :root {
+        --clr-bg: #000000;
+        --clr-fg: #ffffff;
+
+        --clr-blockquote-fg: #ededed;
+        --clr-blockquote-bg: #868e91;
+
+        --clr-code-bg: #090909;
+        --clr-code-fg: #f0f0f0;
+
+        --clr-link: #a9c4d1;
+
+        --blockquote-width: 4px;
+
+        --scrollbar-height: initial; /* TODO: Firefox */
+    }
+
+    html::-webkit-scrollbar {
+        display: initial !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scrollbar-width: initial !important;
+        -ms-overflow-style: initial !important;
+    }
+
+    *[data-pl] > a {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,8 @@
+css-html-js-minify
+datetime
+markdown
+plumbum
+pyfzf
+typing
+pymdown-extensions
+ujson

@@ -1,0 +1,14 @@
+[build]
+    command = "python3 ./scripts/blog.py static && rm -rf ./scripts/ ./completions/"
+
+[[redirects]]
+    from = "/git/*"
+    to = "https://github.com/HACKOSAN/blog-hacko-xyz/:splat"
+    status = 301
+    force = true
+    
+[[redirects]]
+    from = "/c"
+    to = "/git/issues"
+    status = 301
+    force = true
