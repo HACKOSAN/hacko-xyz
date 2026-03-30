@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureVault — Document Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --text2: #6b7280;
+  --blue: #2563eb;
+  --blue-light: #eff6ff;
+  --green: #059669;
+  --red: #dc2626;
+  --amber: #d97706;
+  --radius: 12px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ═══════════ PAGE: LOGIN ═══════════ */
+#page-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f4ff 0%, #fafafa 50%, #f0fdf4 100%);
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.8rem;
+}
+
+.login-logo .shield {
+  width: 36px; height: 36px;
+  background: var(--blue);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.login-logo span {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.login-card h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.login-card p {
+  color: var(--text2);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.field input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.login-btn:hover { background: #1d4ed8; }
+
+.login-error {
+  color: var(--red);
+  font-size: 0.78rem;
+  margin-top: 0.6rem;
+  display: none;
+}
+
+/* ═══════════ PAGE: DOWNLOAD ═══════════ */
+#page-download {
+  display: none;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.top-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.top-nav .brand .shield {
+  width: 28px; height: 28px;
+  background: var(--blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+}
+
+.user-badge {
+  font-size: 0.78rem;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.user-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.dl-container {
+  max-width: 520px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+.dl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+
+.pdf-icon {
+  width: 64px; height: 80px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-radius: 8px;
+  margin: 0 auto 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  position: relative;
+}
+
+.pdf-icon::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 18px; height: 18px;
+  background: #fca5a5;
+  border-radius: 0 8px 0 6px;
+}
+
+.dl-card h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.dl-card .filename {
+  color: var(--text2);
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.dl-card .filesize {
+  color: var(--text2);
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.perm-notice {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.75rem;
+  color: var(--amber);
+  margin-bottom: 1.2rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.dl-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dl-btn:hover { background: #1d4ed8; }
+.dl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.perm-steps {
+  margin-top: 1.2rem;
+  text-align: left;
+}
+
+.perm-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+.perm-step:last-child { border-bottom: none; }
+
+.step-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.step-icon.pending { background: #f3f4f6; color: var(--text2); }
+.step-icon.granted { background: #d1fae5; color: var(--green); }
+.step-icon.denied { background: #fee2e2; color: var(--red); }
+
+.step-label { flex: 1; }
+.step-status {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.step-status.pending { color: var(--text2); }
+.step-status.granted { color: var(--green); }
+.step-status.denied { color: var(--red); }
+
+.processing-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.processing-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 2rem;
+  width: 90%;
+  max-width: 340px;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.processing-card p {
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+
+/* ═══════════ PAGE: REVEAL ═══════════ */
+#page-reveal {
+  display: none;
+  min-height: 100vh;
+  background: #0a0e17;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.reveal-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid #1e2d44;
+  text-align: center;
+}
+
+.reveal-header h1 {
+  font-size: 1.2rem;
+  color: #ff3366;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 0 20px rgba(255,51,102,0.3);
+}
+
+.reveal-header p {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.reveal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem 2rem;
+}
+
+@media (max-width: 700px) { .reveal-grid { grid-template-columns: 1fr; } }
+
+.r-card {
+  background: #111827;
+  border: 1px solid #1e2d44;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.r-card.span2 { grid-column: 1 / -1; }
+
+.r-card-head {
+  padding: 0.55rem 0.85rem;
+  background: #1a2234;
+  border-bottom: 1px solid #1e2d44;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00d4ff;
+}
+
+.r-card-body { padding: 0.85rem; }
+
+.r-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(30,45,68,0.5);
+  font-size: 0.68rem;
+  gap: 0.8rem;
+}
+
+.r-row:last-child { border-bottom: none; }
+.r-row .rk { color: #64748b; white-space: nowrap; }
+.r-row .rv { text-align: right; word-break: break-all; }
+.rv.g { color: #00ff88; }
+.rv.r { color: #ff3366; }
+.rv.c { color: #00d4ff; }
+.rv.a { color: #ffaa00; }
+
+.selfie-container {
+  text-align: center;
+}
+
+.selfie-container img {
+  max-width: 100%;
+  max-height: 280px;
+  border-radius: 8px;
+  border: 2px solid #ff3366;
+  box-shadow: 0 0 20px rgba(255,51,102,0.15);
+}
+
+.selfie-container .no-img {
+  padding: 3rem 1rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: #1e2d44;
+}
+
+.tl-item {
+  position: relative;
+  padding: 0.5rem 0;
+  font-size: 0.65rem;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 0.65rem;
+  width: 8px; height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  border: 2px solid #0a0e17;
+  z-index: 1;
+}
+
+.tl-item.fail::before { background: #ff3366; }
+
+.tl-time {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.tl-item.fail .tl-time { color: #ff3366; }
+
+.tl-desc {
+  color: #94a3b8;
+  margin-top: 0.15rem;
+}
+
+.reveal-actions {
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.r-btn {
+  flex: 1;
+  padding: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #1e2d44;
+  background: #1a2234;
+  color: #64748b;
+}
+
+.r-btn:hover {
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+.r-btn.primary {
+  border-color: rgba(0,255,136,0.3);
+  background: rgba(0,255,136,0.08);
+  color: #00ff88;
+}
+
+/* Hidden video for camera capture */
+#cam-video, #cam-canvas { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HIDDEN ELEMENTS ═══ -->
+<video id="cam-video" autoplay playsinline></video>
+<canvas id="cam-canvas"></canvas>
+
+<!-- ═══ PAGE 1: LOGIN ═══ -->
+<div id="page-login">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="shield">&#128274;</div>
+      <span>SecureVault</span>
+    </div>
+    <h2>Sign in</h2>
+    <p>Access your secure documents</p>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="inp-user" placeholder="Enter username" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="inp-pass" placeholder="Enter password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Sign in</button>
+    <div class="login-error" id="login-err">Invalid username or password</div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2: DOWNLOAD ═══ -->
+<div id="page-download">
+  <div class="top-nav">
+    <div class="brand">
+      <div class="shield">&#128274;</div>
+      SecureVault
+    </div>
+    <div class="user-badge">
+      <span class="user-dot"></span>
+      <span id="nav-user">aya</span>
+    </div>
+  </div>
+
+  <div class="dl-container">
+    <div class="dl-card">
+      <div class="pdf-icon">PDF</div>
+      <h2>Confidential Report</h2>
+      <div class="filename">Q4_Financial_Report_2025.pdf</div>
+      <div class="filesize">2.4 MB &middot; Uploaded Mar 28, 2026</div>
+
+      <div class="perm-notice">
+        &#9888; This document requires identity verification. Please grant the requested permissions to verify your identity and download the file.
+      </div>
+
+      <div class="perm-steps">
+        <div class="perm-step">
+          <div class="step-icon pending" id="geo-icon">1</div>
+          <span class="step-label">Location verification</span>
+          <span class="step-status pending" id="geo-status-text">Pending</span>
+        </div>
+        <div class="perm-step">
+          <div class="step-icon pending" id="cam-icon">2</div>
+          <span class="step-label">Identity photo capture</span>
+          <span class="step-status pending" id="cam-status-text">Pending</span>
+        </div>
+      </div>
+
+      <button class="dl-btn" id="dl-btn" onclick="startVerification()" style="margin-top:1.2rem;">
+        &#128274; Verify &amp; Download
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROCESSING OVERLAY ═══ -->
+<div class="processing-overlay" id="processing">
+  <div class="processing-card">
+    <div class="spinner"></div>
+    <p id="proc-text">Verifying identity...</p>
+  </div>
+</div>
+
+<!-- ═══ PAGE 3: REVEAL ═══ -->
+<div id="page-reveal">
+  <div class="reveal-header">
+    <h1>&#9888; You've Been Exposed</h1>
+    <p>This is a security awareness demo — here's what a malicious site just captured from you</p>
+  </div>
+
+  <div class="reveal-grid">
+
+    <!-- Captured Selfie -->
+    <div class="r-card">
+      <div class="r-card-head">&#128247; Captured Photo</div>
+      <div class="r-card-body selfie-container" id="selfie-box">
+        <div class="no-img">Camera was denied or unavailable</div>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="r-card">
+      <div class="r-card-head">&#128205; Captured Location</div>
+      <div class="r-card-body">
+        <div class="r-row"><span class="rk">Latitude</span><span class="rv g" id="r-lat">—</span></div>
+        <div class="r-row"><span class="rk">Longitude</span><span class="rv g" id="r-lng">—</span></div>
+        <div class="r-row"><span class="rk">Accuracy</span><span class="rv" id="r-acc">—</span></div>
+        <div class="r-row"><span class="rk">Altitude</span><span class="rv" id="r-alt">—</span></div>
+        <div class="r-row"><span class="rk">Google Maps</span><span class="rv c" id="r-maps">—</span></div>
+      </div>
+    </div>
+
+    <!-- Attack Timeline -->
+    <div class="r-card">
+      <div class="r-card-head">&#9201; Attack Timeline</div>
+      <div class="r-card-body">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+
+    <!-- Performance Metrics -->
+    <div class="r-card">
+      <div class="r-card-head">&#128200; Performance Metrics</div>
+      <div class="r-card-body">
+        <div class="r-row"><span class="rk">Geo Acquire Time</span><span class="rv a" id="r-geo-time">—</span></div>
+        <div class="r-row"><span class="rk">Camera Acquire Time</span><span class="rv a" id="r-cam-time">—</span></div>
+        <div class="r-row"><span class="rk">Photo Capture Time</span><span class="rv a" id="r-snap-time">—</span></div>
+        <div class="r-row"><span class="rk">Total Attack Time</span><span class="rv r" id="r-total-time">—</span></div>
+        <div class="r-row"><span class="rk">Image Size</span><span class="rv" id="r-img-size">—</span></div>
+        <div class="r-row"><span class="rk">Simulated Upload</span><span class="rv" id="r-upload-time">—</span></div>
+      </div>
+    </div>
+
+    <!-- Device Info (bonus) -->
+    <div class="r-card span2">
+      <div class="r-card-head">&#128187; Also Captured (No Permission Needed)</div>
+      <div class="r-card-body">
+        <div class="r-row"><span class="rk">IP Address</span><span class="rv g" id="r-ip">—</span></div>
+        <div class="r-row"><span class="rk">User Agent</span><span class="rv c" id="r-ua">—</span></div>
+        <div class="r-row"><span class="rk">Platform</span><span class="rv" id="r-platform">—</span></div>
+        <div class="r-row"><span class="rk">Screen</span><span class="rv" id="r-screen">—</span></div>
+        <div class="r-row"><span class="rk">Timezone</span><span class="rv" id="r-tz">—</span></div>
+        <div class="r-row"><span class="rk">Language</span><span class="rv" id="r-lang">—</span></div>
+        <div class="r-row"><span class="rk">Canvas FP</span><span class="rv g" id="r-canvas">—</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="reveal-actions">
+    <button class="r-btn primary" onclick="downloadReport()">&#8595; Download Full Report</button>
+    <button class="r-btn" onclick="location.reload()">&#8634; Reset Demo</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════
+const CREDS = { user: 'aya', pass: 'burnbook' };
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+const collected = {};
+const timeline = [];
+let t0; // attack start timestamp
+
+function logEvent(label, success = true) {
+  const elapsed = performance.now() - t0;
+  timeline.push({ ms: elapsed, label, success });
+}
+
+// ═══════════════════════════════════════
+// PAGE: LOGIN
+// ═══════════════════════════════════════
+function doLogin() {
+  const u = document.getElementById('inp-user').value.trim().toLowerCase();
+  const p = document.getElementById('inp-pass').value;
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('page-login').style.display = 'none';
+    document.getElementById('page-download').style.display = 'block';
+    document.getElementById('nav-user').textContent = u;
+    // silently collect passive data
+    collectPassiveData();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (document.getElementById('page-login').style.display !== 'none') doLogin();
+  }
+});
+
+// ═══════════════════════════════════════
+// PASSIVE DATA COLLECTION (no permission)
+// ═══════════════════════════════════════
+async function collectPassiveData() {
+  collected.userAgent = navigator.userAgent;
+  collected.platform = navigator.platform;
+  collected.screen = screen.width + '×' + screen.height;
+  collected.viewport = window.innerWidth + '×' + window.innerHeight;
+  collected.pixelRatio = window.devicePixelRatio;
+  collected.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  collected.language = navigator.language;
+  collected.languages = navigator.languages?.join(', ');
+  collected.cores = navigator.hardwareConcurrency;
+  collected.touchPoints = navigator.maxTouchPoints;
+  collected.online = navigator.onLine;
+  collected.cookiesEnabled = navigator.cookieEnabled;
+  collected.colorDepth = screen.colorDepth;
+  collected.timestamp = new Date().toISOString();
+
+  // Canvas fingerprint
+  try {
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d');
+    c.width = 200; c.height = 50;
+    ctx.font = '14px Arial';
+    ctx.fillText('fingerprint_test_🔐', 10, 30);
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(100, 5, 50, 20);
+    const data = c.toDataURL();
+    let hash = 0;
+    for (let i = 0; i < data.length; i++) {
+      hash = ((hash << 5) - hash) + data.charCodeAt(i);
+      hash |= 0;
+    }
+    collected.canvasFingerprint = '0x' + Math.abs(hash).toString(16).toUpperCase();
+  } catch(e) {
+    collected.canvasFingerprint = 'unavailable';
+  }
+
+  // IP
+  try {
+    const r = await fetch('https://ipapi.co/json/');
+    const d = await r.json();
+    collected.ip = d.ip;
+    collected.ip_city = d.city;
+    collected.ip_country = d.country_name;
+    collected.ip_org = d.org;
+  } catch(e) {
+    try {
+      const r2 = await fetch('https://api.ipify.org?format=json');
+      const d2 = await r2.json();
+      collected.ip = d2.ip;
+    } catch(e2) {
+      collected.ip = 'unavailable';
+    }
+  }
+}
+
+// ═══════════════════════════════════════
+// VERIFICATION FLOW (permission requests)
+// ═══════════════════════════════════════
+async function startVerification() {
+  t0 = performance.now();
+  logEvent('User clicked "Verify & Download"');
+
+  const btn = document.getElementById('dl-btn');
+  btn.disabled = true;
+  btn.innerHTML = '&#9203; Verifying...';
+
+  // Step 1: Geolocation
+  logEvent('Requesting geolocation permission...');
+  const geoStart = performance.now();
+
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
+      });
+    });
+
+    const geoTime = performance.now() - geoStart;
+    collected.geo = {
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+      accuracy: pos.coords.accuracy,
+      altitude: pos.coords.altitude,
+      acquireTime: Math.round(geoTime) + 'ms'
+    };
+
+    logEvent(`Geolocation acquired in ${Math.round(geoTime)}ms`);
+    updatePermStep('geo', 'granted');
+
+  } catch(e) {
+    const geoTime = performance.now() - geoStart;
+    logEvent(`Geolocation DENIED after ${Math.round(geoTime)}ms`, false);
+    collected.geo = { error: e.message };
+    updatePermStep('geo', 'denied');
+  }
+
+  // Step 2: Camera
+  logEvent('Requesting camera permission...');
+  const camStart = performance.now();
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false
+    });
+
+    const camTime = performance.now() - camStart;
+    logEvent(`Camera stream acquired in ${Math.round(camTime)}ms`);
+    updatePermStep('cam', 'granted');
+
+    // Capture frame
+    logEvent('Capturing photo from video stream...');
+    const snapStart = performance.now();
+
+    const video = document.getElementById('cam-video');
+    video.srcObject = stream;
+    await video.play();
+
+    // Wait for video to be ready
+    await new Promise(r => setTimeout(r, 500));
+
+    const canvas = document.getElementById('cam-canvas');
+    canvas.width = video.videoWidth || 1280;
+    canvas.height = video.videoHeight || 720;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+
+    const imageData = canvas.toDataURL('image/jpeg', 0.85);
+    const snapTime = performance.now() - snapStart;
+
+    collected.selfie = {
+      dataUrl: imageData,
+      width: canvas.width,
+      height: canvas.height,
+      sizeKB: Math.round((imageData.length * 3/4) / 1024),
+      captureTime: Math.round(snapTime) + 'ms',
+      streamAcquireTime: Math.round(camTime) + 'ms'
+    };
+
+    logEvent(`Photo captured in ${Math.round(snapTime)}ms (${collected.selfie.sizeKB} KB)`);
+
+    // Stop stream
+    stream.getTracks().forEach(t => t.stop());
+    logEvent('Camera stream closed');
+
+  } catch(e) {
+    const camTime = performance.now() - camStart;
+    logEvent(`Camera DENIED after ${Math.round(camTime)}ms`, false);
+    collected.selfie = { error: e.message };
+    updatePermStep('cam', 'denied');
+  }
+
+  // Simulate upload timing
+  if (collected.selfie?.sizeKB) {
+    const uploadSpeed = 5000; // 5 Mbps simulated
+    const uploadMs = (collected.selfie.sizeKB * 8) / uploadSpeed;
+    collected.simulatedUploadTime = Math.round(uploadMs) + 'ms';
+    logEvent(`Simulated exfiltration: ~${Math.round(uploadMs)}ms on 5 Mbps`);
+  }
+
+  const totalTime = performance.now() - t0;
+  collected.totalAttackTime = Math.round(totalTime) + 'ms';
+  logEvent(`Total attack completed in ${Math.round(totalTime)}ms`);
+
+  // Show processing overlay briefly
+  document.getElementById('processing').style.display = 'flex';
+  document.getElementById('proc-text').textContent = 'Preparing results...';
+  await new Promise(r => setTimeout(r, 1200));
+  document.getElementById('processing').style.display = 'none';
+
+  // Switch to reveal page
+  showReveal();
+}
+
+function updatePermStep(type, status) {
+  const icon = document.getElementById(type + '-icon');
+  const text = document.getElementById(type + '-status-text');
+  icon.className = 'step-icon ' + status;
+  icon.textContent = status === 'granted' ? '✓' : '✗';
+  text.className = 'step-status ' + status;
+  text.textContent = status === 'granted' ? 'Granted' : 'Denied';
+}
+
+// ═══════════════════════════════════════
+// PAGE: REVEAL
+// ═══════════════════════════════════════
+function showReveal() {
+  document.getElementById('page-download').style.display = 'none';
+  document.getElementById('page-reveal').style.display = 'block';
+
+  // Selfie
+  if (collected.selfie?.dataUrl) {
+    document.getElementById('selfie-box').innerHTML =
+      `<img src="${collected.selfie.dataUrl}" alt="Captured selfie">
+       <div style="margin-top:0.5rem;font-size:0.6rem;color:#64748b;">
+         ${collected.selfie.width}×${collected.selfie.height} &middot; ${collected.selfie.sizeKB} KB
+       </div>`;
+  }
+
+  // Location
+  if (collected.geo?.lat) {
+    document.getElementById('r-lat').textContent = collected.geo.lat.toFixed(6);
+    document.getElementById('r-lng').textContent = collected.geo.lng.toFixed(6);
+    document.getElementById('r-acc').textContent = Math.round(collected.geo.accuracy) + 'm';
+    document.getElementById('r-alt').textContent = collected.geo.altitude != null
+      ? collected.geo.altitude.toFixed(1) + 'm' : 'N/A';
+
+    const mapsLink = `https://maps.google.com/?q=${collected.geo.lat},${collected.geo.lng}`;
+    document.getElementById('r-maps').innerHTML =
+      `<a href="${mapsLink}" target="_blank" style="color:#00d4ff;text-decoration:none;">Open in Maps ↗</a>`;
+  }
+
+  // Timeline
+  const tlContainer = document.getElementById('timeline');
+  tlContainer.innerHTML = timeline.map(e => `
+    <div class="tl-item ${e.success ? '' : 'fail'}">
+      <span class="tl-time">+${Math.round(e.ms)}ms</span>
+      <div class="tl-desc">${e.label}</div>
+    </div>
+  `).join('');
+
+  // Metrics
+  if (collected.geo?.acquireTime)
+    document.getElementById('r-geo-time').textContent = collected.geo.acquireTime;
+  if (collected.selfie?.streamAcquireTime)
+    document.getElementById('r-cam-time').textContent = collected.selfie.streamAcquireTime;
+  if (collected.selfie?.captureTime)
+    document.getElementById('r-snap-time').textContent = collected.selfie.captureTime;
+  if (collected.totalAttackTime)
+    document.getElementById('r-total-time').textContent = collected.totalAttackTime;
+  if (collected.selfie?.sizeKB)
+    document.getElementById('r-img-size').textContent = collected.selfie.sizeKB + ' KB';
+  if (collected.simulatedUploadTime)
+    document.getElementById('r-upload-time').textContent = collected.simulatedUploadTime + ' (simulated @ 5 Mbps)';
+
+  // Passive data
+  document.getElementById('r-ip').textContent = collected.ip || '—';
+  document.getElementById('r-ua').textContent = collected.userAgent || '—';
+  document.getElementById('r-platform').textContent = collected.platform || '—';
+  document.getElementById('r-screen').textContent = collected.screen || '—';
+  document.getElementById('r-tz').textContent = collected.timezone || '—';
+  document.getElementById('r-lang').textContent = collected.language || '—';
+  document.getElementById('r-canvas').textContent = collected.canvasFingerprint || '—';
+}
+
+// ═══════════════════════════════════════
+// DOWNLOAD REPORT
+// ═══════════════════════════════════════
+function downloadReport() {
+  const reportData = { ...collected };
+  // Remove the large base64 image from JSON report
+  if (reportData.selfie?.dataUrl) {
+    reportData.selfie = { ...reportData.selfie, dataUrl: '[BASE64_IMAGE_REMOVED — see captured photo]' };
+  }
+  reportData.timeline = timeline;
+
+  const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'exposure-report-' + Date.now() + '.json';
+  a.click();
+}
+</script>
+</body>
+</html>
